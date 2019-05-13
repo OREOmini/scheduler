@@ -1,4 +1,4 @@
-GOOS=linux bash build
-docker build -t kelseyhightower/scheduler:0.4.0 .
-docker push kelseyhightower/scheduler:0.4.0
-rm scheduler
+GOOS=linux GOARCH=amd64 bash build
+docker build -t gcr.io/my-gcp-project-239900/hightower-scheduler:1.0 .
+docker push gcr.io/my-gcp-project-239900/hightower-scheduler:1.0
+#rm scheduler
