@@ -48,7 +48,7 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-
+	fmt.Printf("%t\n", listOnly)
 	if listOnly {
 		for _, node := range nodes.Items {
 			price := node.Metadata.Annotations["hightower.com/cost"]
@@ -77,6 +77,7 @@ func main() {
 			os.Exit(1)
 		}
 
+		fmt.Printf("%s\n", node.Metadata.Name)
 		url := "http://127.0.0.1:8001/api/v1/nodes/" + node.Metadata.Name
 		request, err := http.NewRequest("PATCH", url, body)
 		if err != nil {
@@ -96,6 +97,5 @@ func main() {
 			fmt.Println(err)
 			os.Exit(1)
 		}
-		fmt.Printf("%s %s\n", node.Metadata.Name, price)
 	}
 }

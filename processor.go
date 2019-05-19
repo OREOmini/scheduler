@@ -74,6 +74,8 @@ func schedulePod(pod *Pod) error {
 		return err
 	}
 	err = bind(pod, node)
+	println("bind")
+	printNode(node)
 	if err != nil {
 		return err
 	}
@@ -81,6 +83,7 @@ func schedulePod(pod *Pod) error {
 }
 
 func schedulePods() error {
+	fmt.Println("===func schedulePods()")
 	processorLock.Lock()
 	defer processorLock.Unlock()
 	pods, err := getUnscheduledPods()

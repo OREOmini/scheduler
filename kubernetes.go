@@ -90,7 +90,6 @@ func getNodes() (*NodeList, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return &nodeList, nil
 }
 
@@ -176,9 +175,15 @@ func getUnscheduledPods() ([]*Pod, error) {
 	}
 
 	for _, pod := range podList.Items {
-		if pod.Metadata.Annotations["scheduler.alpha.kubernetes.io/name"] == schedulerName {
+		//if pod.Metadata.Annotations["scheduler.alpha.kubernetes.io/name"] == schedulerName {
+		if pod.Spec.SchedulerName == schedulerName {
 			unscheduledPods = append(unscheduledPods, &pod)
 		}
+	}
+
+	println("unscheduled pods:")
+	for _, pod := range unscheduledPods {
+		printPod(*pod)
 	}
 
 	return unscheduledPods, nil
@@ -380,4 +385,30 @@ func bind(pod *Pod, node Node) error {
 	}
 	log.Println(message)
 	return postEvent(event)
+}
+
+func printPod(pod Pod)  {
+	fmt.Printf("\npod: %s, scheduler: %s\n", pod.Metadata.Name, pod.Spec.SchedulerName)
+	for _, con := range pod.Spec.Containers {
+		fmt.Println("---Limit---")
+		for k, v := range con.Resources.Limits {
+			fmt.Printf("%s: %s\n", k, v)
+		}
+		fmt.Println("---Requests---")
+		for k, v := range con.Resources.Requests {
+			fmt.Printf("%s: %s\n", k, v)
+		}
+	}
+}
+
+func printNode(node Node) {
+	fmt.Println("\n", node.Metadata.Name)
+	fmt.Println("---Allocatable---")
+	for k, v := range node.Status.Allocatable {
+		fmt.Printf("%s: %s\n", k, v)
+	}
+	fmt.Println("---Capacity---")
+	for k, v := range node.Status.Capacity {
+		fmt.Printf("%s: %s\n", k, v)
+	}
 }
