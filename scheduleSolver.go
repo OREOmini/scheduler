@@ -3,7 +3,60 @@ package main
 import (
 	"fmt"
 	"github.com/sbinet/go-python"
+	"strconv"
 )
+
+type PodToSolve struct {
+	cpu float64
+	memory float64
+}
+type NodeToSolve struct {
+	cpu float64
+	memory float64
+	pod_space float64
+}
+
+func getCpuFromString(cpuStr string) float64{
+	return 1
+}
+func getMemoryFromString(memoryStr string) float64{
+	return 1
+}
+
+// [cpu, memory. pod space]
+func (node *Node) getSolveParamList() []float64 {
+	res := make([]float64, 3)
+	for k, v := range node.Status.Allocatable {
+		fmt.Printf("%s: %s\n", k, v)
+		if k == "cpu" {
+			res[0] = getCpuFromString(v)
+		} else if k == "memory" {
+			res[1] = getMemoryFromString(v)
+		} else if k == "pods" {
+			i, err := strconv.Atoi(v)
+			if err == nil {
+				res[2] = float64(i)
+			}
+		}
+	}
+	return res
+}
+
+// [cpu, memory]
+func (pod *Pod) getSolveParamList() []float64 {
+	totalCpu := 0.0
+	totalMemory := 0.0
+	for _, con := range pod.Spec.Containers {
+		for k, v := range con.Resources.Requests {
+			if k == "cpu" {
+				totalCpu += getCpuFromString(v)
+			} else if k == "memory" {
+				totalMemory += getMemoryFromString(v)
+			}
+		}
+	}
+	return []float64{totalCpu, totalMemory}
+}
 
 func init() {
 	err := python.Initialize()
@@ -98,27 +151,27 @@ func callPySolve(res chan *python.PyObject, ok chan bool) {
 	//return res
 }
 
-
-func main() {
-	res := make(chan *python.PyObject)
-	ok := make(chan bool)
-
-	go callPySolve(res, ok)
-
-	//<- ok
-
-	pyMatrix := <- res
-	//pyMatrix = python.PyList_GetItem(pyMatrix, 0)
-
-	size := python.PyList_Size(pyMatrix)
-	println("---",size)
-	podAllocation := make([][]int, size)
-	for i := 0; i < size; i++ {
-		pyListTemp := python.PyList_GET_ITEM(pyMatrix, i)
-		temp := toGoList(pyListTemp)
-		fmt.Println(temp)
-		podAllocation[i] = temp
-	}
-}
-
-
+//
+//func main() {
+//	res := make(chan *python.PyObject)
+//	ok := make(chan bool)
+//
+//	go callPySolve(res, ok)
+//
+//	//<- ok
+//
+//	pyMatrix := <- res
+//	//pyMatrix = python.PyList_GetItem(pyMatrix, 0)
+//
+//	size := python.PyList_Size(pyMatrix)
+//	println("---",size)
+//	podAllocation := make([][]int, size)
+//	for i := 0; i < size; i++ {
+//		pyListTemp := python.PyList_GET_ITEM(pyMatrix, i)
+//		temp := toGoList(pyListTemp)
+//		fmt.Println(temp)
+//		podAllocation[i] = temp
+//	}
+//}
+//
+//

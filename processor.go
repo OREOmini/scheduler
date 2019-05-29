@@ -73,6 +73,7 @@ func schedulePod(pod *Pod) error {
 	if err != nil {
 		return err
 	}
+	printPod(*pod)
 	err = bind(pod, node)
 	println("bind")
 	printNode(node)

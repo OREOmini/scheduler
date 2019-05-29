@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dcac0f2e-a54d-4365-9ae6-8eed4b06aee8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/scheduleSolver.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lp-solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/lp-solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LPSolver.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/processor.go" beforeDir="false" afterPath="$PROJECT_DIR$/processor.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduleSolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSolver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduler" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +18,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kubernetes.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3409">
-              <caret line="96" column="8" selection-start-line="96" selection-start-column="4" selection-end-line="96" selection-end-column="8" />
+            <state relative-caret-position="226">
+              <caret line="389" column="25" lean-forward="true" selection-start-line="389" selection-start-column="25" selection-end-line="389" selection-end-column="25" />
               <folding>
                 <element signature="n#!!block;n#getNodes#0" />
                 <element signature="n#!!block;n#bind#0" />
@@ -27,23 +28,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LPSolver.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
-              <folding>
-                <element signature="e#14#66#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scheduleSolver.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="100" column="11" lean-forward="true" selection-start-line="100" selection-start-column="11" selection-end-line="100" selection-end-column="11" />
+            <state relative-caret-position="-1227">
+              <caret line="57" column="43" lean-forward="true" selection-start-line="57" selection-start-column="43" selection-end-line="57" selection-end-column="43" />
               <folding>
                 <element signature="e#14#62#0" expanded="true" />
               </folding>
@@ -52,10 +41,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/types.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="138">
+              <caret line="40" column="38" lean-forward="true" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/processor.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="22" column="33" lean-forward="true" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
+            <state relative-caret-position="276">
+              <caret line="74" column="5" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -63,8 +61,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="23" column="33" lean-forward="true" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+            <state relative-caret-position="436">
+              <caret line="38" column="43" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -102,10 +100,10 @@
         <option value="$PROJECT_DIR$/deployments/nginx.yaml" />
         <option value="$PROJECT_DIR$/deployments/pod.yaml" />
         <option value="$PROJECT_DIR$/types.go" />
-        <option value="$PROJECT_DIR$/processor.go" />
         <option value="$PROJECT_DIR$/kubernetes.go" />
-        <option value="$PROJECT_DIR$/LPSolver.go" />
         <option value="$PROJECT_DIR$/lp-solver.py" />
+        <option value="$PROJECT_DIR$/LPSolver.go" />
+        <option value="$PROJECT_DIR$/processor.go" />
         <option value="$PROJECT_DIR$/scheduleSolver.go" />
       </list>
     </option>
@@ -238,12 +236,12 @@
     <frame x="0" y="23" width="1440" height="830" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1981402" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1981402" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32891566" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32520324" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32520324" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -251,7 +249,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32891566" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.5891566" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.5880759" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -261,18 +259,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/scheduleSolver.go</url>
-          <line>110</line>
-          <properties />
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/annotator/main.go">
@@ -287,13 +273,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/build-container">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/types.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="68" column="41" selection-start-line="68" selection-start-column="41" selection-end-line="68" selection-end-column="41" />
-        </state>
-      </provider>
     </entry>
     <entry file="file:///usr/local/go/src/math/bits.go">
       <provider selected="true" editor-type-id="text-editor">
@@ -318,27 +297,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/restart-nginx">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/deployments/nginx.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="30" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/deployments/pod.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="32" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/deployments/scheduler.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$USER_HOME$/go/src/github.com/sbinet/go-python/sequence.go">
       <provider selected="true" editor-type-id="text-editor">
@@ -384,32 +342,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LPSolver.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
-          <folding>
-            <element signature="e#14#66#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="23" column="33" lean-forward="true" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/processor.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="22" column="33" lean-forward="true" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/kubernetes.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3409">
-          <caret line="96" column="8" selection-start-line="96" selection-start-column="4" selection-end-line="96" selection-end-column="8" />
+        <state relative-caret-position="226">
+          <caret line="389" column="25" lean-forward="true" selection-start-line="389" selection-start-column="25" selection-end-line="389" selection-end-column="25" />
           <folding>
             <element signature="n#!!block;n#getNodes#0" />
             <element signature="n#!!block;n#bind#0" />
@@ -417,10 +358,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/processor.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="74" column="5" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deployments/pod.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="32" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deployments/nginx.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="30" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deployments/scheduler.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="38" column="43" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/types.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="40" column="38" lean-forward="true" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/scheduleSolver.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="100" column="11" lean-forward="true" selection-start-line="100" selection-start-column="11" selection-end-line="100" selection-end-column="11" />
+        <state relative-caret-position="-1227">
+          <caret line="57" column="43" lean-forward="true" selection-start-line="57" selection-start-column="43" selection-end-line="57" selection-end-column="43" />
           <folding>
             <element signature="e#14#62#0" expanded="true" />
           </folding>
