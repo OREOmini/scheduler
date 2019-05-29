@@ -14,20 +14,7 @@ type Node struct {
 }
 
 
-func T(matrix [][]float64) [][]float64 {
-	row := len(matrix)
-	col := len(matrix[0])
-	result := make([][]float64, col)
 
-	for i := 0; i < col; i++ {
-		temp := make([]float64, row)
-		for j := 0; j < row; j++ {
-			temp[j] = matrix[j][i]
-		}
-		result[i] = temp
-	}
-	return result
-}
 
 func getData(podList []Pod, nodeList []Node) (a []float64, b []float64, A []float64, B []float64, C []float64, E1 []float64, E2 []float64){
 	podNum := len(podList)

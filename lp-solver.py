@@ -1,4 +1,8 @@
 from pulp import *
+import time as time
+import numpy as np
+
+a = 10
 
 NODE_CPU_INDEX = 0
 NODE_MEMORY_INDEX = 1
@@ -17,15 +21,18 @@ nodeList = [
     [40, 3, 7]
 ]
 
-def schedule_solve(podList, nodeList):
+def schedule_solve(podList, nodeList, VERBOSE = False):
     podNum = len(podList)
     nodeNum = len(nodeList)
+
+    print(podList)
+    print(nodeList)
 
     nRow = [i for i in range(nodeNum)]
     pCol = [i for i in range(podNum)]
 
     # matrix stands for pod selection
-    choices = LpVariable.matrix("Choice", (nRow, pCol),0,1,LpInteger)
+    choices = LpVariable.matrix("choice", (nRow, pCol),0,1,LpInteger)
     # node usage
     nodeOccupation = LpVariable.matrix("node", nRow,0,1,LpInteger)
 
@@ -53,10 +60,24 @@ def schedule_solve(podList, nodeList):
     print(LpStatus[prob.status])
 
     print("objective:",value(prob.objective))
-    print(prob)
+    if VERBOSE: 
+        print(prob)
+    
+    result = [[0 for col in range(podNum)] for row in range(nodeNum)]
     for v in prob.variables():
-        print(v.name, "=", v.varValue)  
+        t = v.name.split('_')
+        if t[0] == 'choice':
+            result[int(t[1])][int(t[2])] = v.varValue
+        # print(v.name, "=", v.varValue)  
+    
+    print(result)
+    return result
 
-schedule_solve(podList, nodeList)
+
+# start = time.time()
+# podList = np.random.rand(2, 2)
+# nodeList = np.random.rand(1, 3)
+# schedule_solve(podList, nodeList)
+# print(time.time() - start)
 
 
