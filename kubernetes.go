@@ -399,6 +399,8 @@ func printPod(pod Pod)  {
 			fmt.Printf("%s: %s\n", k, v)
 		}
 	}
+
+	fmt.Println("Pod param list:", pod.getSolveParamList())
 }
 
 func printNode(node Node) {
@@ -411,4 +413,6 @@ func printNode(node Node) {
 	for k, v := range node.Status.Capacity {
 		fmt.Printf("%s: %s\n", k, v)
 	}
+
+	fmt.Println("Node param list:", node.getSolveParamList())
 }

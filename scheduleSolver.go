@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/sbinet/go-python"
 	"strconv"
+	"strings"
 )
 
 type PodToSolve struct {
@@ -16,11 +17,48 @@ type NodeToSolve struct {
 	pod_space float64
 }
 
+// for simplicity mi = m, ki = k
+func toMb(s string) float64 {
+	s = strings.ToLower(s)
+	if strings.HasSuffix(s, "m") || strings.HasSuffix(s, "mi") || strings.HasSuffix(s, "mb") {
+		num := strings.Split(s, "m")[0]
+		if s, err := strconv.ParseFloat(num, 1); err == nil {
+			return s
+		}
+	} else if strings.HasSuffix(s, "k") || strings.HasSuffix(s, "ki") || strings.HasSuffix(s, "kb") {
+		num := strings.Split(s, "k")[0]
+		if s, err := strconv.ParseFloat(num, 1); err == nil {
+			return s / 1000
+		}
+	} else if strings.HasSuffix(s, "g") || strings.HasSuffix(s, "gi") || strings.HasSuffix(s, "gb") {
+		num := strings.Split(s, "g")[0]
+		if s, err := strconv.ParseFloat(num, 1); err == nil {
+			return s * 1000
+		}
+	} else {
+		if s, err := strconv.ParseFloat(s, 1); err == nil {
+			return s
+		}
+	}
+	return 0
+}
+
 func getCpuFromString(cpuStr string) float64{
-	return 1
+	cpuStr = strings.TrimSpace(cpuStr)
+	if cpuStr == "" {
+		return 0
+	} else {
+		return toMb(cpuStr)
+	}
 }
 func getMemoryFromString(memoryStr string) float64{
-	return 1
+	memoryStr = strings.TrimSpace(memoryStr)
+	memoryStr = strings.ToLower(memoryStr)
+	if memoryStr == "" {
+		return 0
+	} else {
+		return toMb(memoryStr)
+	}
 }
 
 // [cpu, memory. pod space]
