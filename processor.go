@@ -40,21 +40,20 @@ func reconcileUnscheduledPods(interval int, done chan struct{}, wg *sync.WaitGro
 
 func monitorUnscheduledPods(done chan struct{}, wg *sync.WaitGroup) {
 	pods, errc := watchUnscheduledPods()
+	//fmt.Println("monitorUnscheduledPods", "<-pods")
+	//processorLock.Lock()
+	//time.Sleep(2 * time.Second)
+	//schedulePodUsingSolver()
+	//processorLock.Unlock()
 
 	for {
 		select {
 		case err := <-errc:
 			log.Println(err)
 		case <-pods:
-			fmt.Println("monitorUnscheduledPods", "<-pods")
 			processorLock.Lock()
 			time.Sleep(2 * time.Second)
-			pods, err := getUnscheduledPods()
-			if err != nil {
-				log.Println(err)
-			} else {
-				schedulePodUsingSolver(pods)
-			}
+			schedulePodUsingSolver()
 			processorLock.Unlock()
 		case <-done:
 			wg.Done()
@@ -77,8 +76,7 @@ func schedulePod(pod *Pod) error {
 		return err
 	}
 	//printPod(*pod)
-	err = bind(pod, node)
-	println("bind")
+	err = bind(*pod, node)
 	//printNode(node)
 	if err != nil {
 		return err
@@ -96,15 +94,7 @@ func schedulePods() error {
 	}
 
 	if len(pods) != 0 {
-		schedulePodUsingSolver(pods)
+		schedulePodUsingSolver()
 	}
-
-	//for _, pod := range pods {
-	//	fmt.Println("----a pod to be schedule------")
-	//	err := schedulePod(pod)
-	//	if err != nil {
-	//		log.Println(err)
-	//	}
-	//}
 	return nil
 }

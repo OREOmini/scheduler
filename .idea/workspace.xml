@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="dcac0f2e-a54d-4365-9ae6-8eed4b06aee8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bestprice.go" beforeDir="false" afterPath="$PROJECT_DIR$/bestprice.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deployments/nginx.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/deployments/nginx.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kubernetes.go" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lp-solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/lp-solver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/processor.go" beforeDir="false" afterPath="$PROJECT_DIR$/processor.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scheduleSolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/scheduleSolver.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scheduler" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler" afterDir="false" />
@@ -21,15 +20,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kubernetes.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="607">
-              <caret line="380" column="23" selection-start-line="380" selection-start-column="16" selection-end-line="380" selection-end-column="23" />
+            <state relative-caret-position="-236">
+              <caret line="95" column="5" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
               <folding>
-                <element signature="n#!!block;n#postEvent#0" />
-                <element signature="n#!!block;n#watchUnscheduledPods#0" />
-                <element signature="n#!!block;n#getUnscheduledPods#0" />
-                <element signature="n#!!block;n#getPods#0" />
                 <element signature="e#4819#4838#0" />
-                <element signature="n#!!block;n#fit#0" />
               </folding>
             </state>
           </provider>
@@ -44,11 +38,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scheduleSolver.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
-              <caret line="173" column="23" selection-start-line="173" selection-start-column="23" selection-end-line="173" selection-end-column="23" />
+            <state relative-caret-position="246">
+              <caret line="238" column="49" lean-forward="true" selection-start-line="238" selection-start-column="49" selection-end-line="238" selection-end-column="49" />
               <folding>
                 <element signature="e#14#62#0" expanded="true" />
                 <element signature="n#!!block;n#toByte#0" />
@@ -63,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/processor.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="55" column="33" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
+            <state relative-caret-position="333">
+              <caret line="53" column="32" lean-forward="true" selection-start-line="53" selection-start-column="32" selection-end-line="53" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -75,8 +69,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="32" column="18" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
+            <state relative-caret-position="376">
+              <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -101,6 +95,9 @@
       <find>getUnscheduledPods</find>
       <find>print</find>
       <find>ok</find>
+      <find>*Pod</find>
+      <find>unsche</find>
+      <find>defer</find>
       <find>sy</find>
     </findStrings>
     <replaceStrings>
@@ -122,8 +119,8 @@
         <option value="$PROJECT_DIR$/bestprice.go" />
         <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/kubernetes.go" />
-        <option value="$PROJECT_DIR$/processor.go" />
         <option value="$PROJECT_DIR$/scheduleSolver.go" />
+        <option value="$PROJECT_DIR$/processor.go" />
       </list>
     </option>
   </component>
@@ -277,7 +274,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32891566" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.40379405" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.7113821" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -287,18 +284,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/kubernetes.go</url>
-          <line>186</line>
-          <properties />
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file:///usr/local/go/src/net/http/client.go">
@@ -422,21 +407,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kubernetes.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="607">
-          <caret line="380" column="23" selection-start-line="380" selection-start-column="16" selection-end-line="380" selection-end-column="23" />
-          <folding>
-            <element signature="n#!!block;n#postEvent#0" />
-            <element signature="n#!!block;n#watchUnscheduledPods#0" />
-            <element signature="n#!!block;n#getUnscheduledPods#0" />
-            <element signature="n#!!block;n#getPods#0" />
-            <element signature="e#4819#4838#0" />
-            <element signature="n#!!block;n#fit#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/types.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
@@ -446,22 +416,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="32" column="18" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
+        <state relative-caret-position="376">
+          <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/processor.go">
+    <entry file="file://$PROJECT_DIR$/kubernetes.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="55" column="33" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
+        <state relative-caret-position="-236">
+          <caret line="95" column="5" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
+          <folding>
+            <element signature="e#4819#4838#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scheduleSolver.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="173" column="23" selection-start-line="173" selection-start-column="23" selection-end-line="173" selection-end-column="23" />
+        <state relative-caret-position="246">
+          <caret line="238" column="49" lean-forward="true" selection-start-line="238" selection-start-column="49" selection-end-line="238" selection-end-column="49" />
           <folding>
             <element signature="e#14#62#0" expanded="true" />
             <element signature="n#!!block;n#toByte#0" />
@@ -472,6 +445,13 @@
             <element signature="n#!!block;n#getPyList#0" />
             <element signature="n#!!block;n#toGoList#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/processor.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="53" column="32" lean-forward="true" selection-start-line="53" selection-start-column="32" selection-end-line="53" selection-end-column="32" />
         </state>
       </provider>
     </entry>

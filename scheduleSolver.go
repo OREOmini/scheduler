@@ -5,6 +5,8 @@ import (
 	"github.com/sbinet/go-python"
 	"strconv"
 	"strings"
+	"sync"
+	"time"
 )
 
 type PodToSolve struct {
@@ -176,7 +178,7 @@ func callPySolve(n [][]float64, p [][]float64, ok chan bool) *python.PyObject{
 	return res
 }
 
-func solve(nodeList []Node, podList []*Pod) [][]int{
+func solve(nodeList []Node, podList []Pod) [][]int{
 	podMatrix := make([][]float64, len(podList))
 	for i := 0;i < len(podList); i++ {
 		podMatrix[i] = podList[i].getSolveParamList()
@@ -208,8 +210,11 @@ func solve(nodeList []Node, podList []*Pod) [][]int{
 	return podAllocation
 }
 
-func schedulePodUsingSolver(podList []*Pod) error{
-	fmt.Println("get pod list len:", len(podList))
+func schedulePodUsingSolver() error {
+	podList, err := getUnscheduledPods()
+	if err != nil || len(podList) == 0 {
+		return err
+	}
 	nodeList, err := getNodes()
 	if err != nil {
 		return err
@@ -230,26 +235,29 @@ func schedulePodUsingSolver(podList []*Pod) error{
 	return nil
 }
 
-func schedulePodOnResult(podAllocation [][]int,podList []*Pod, nodeList []Node) error {
+func schedulePodOnResult(podAllocation [][]int,podList []Pod, nodeList []Node) error {
 	if len(podAllocation) != len(nodeList) || len(podAllocation[0]) != len(podList) {
 		return fmt.Errorf("Matrix Incompability.")
 	}
+	mu := sync.Mutex{}
+	mu.Lock()
 	for i := 0; i < len(podAllocation); i++ {
-		for j := 0; j < len(podAllocation); j++ {
+		for j := 0; j < len(podAllocation[0]); j++ {
 			if podAllocation[i][j] == 1 {
+				println(podList[j].Metadata.Name)
 				n := nodeList[i]
 				p := podList[j]
 				fmt.Println("bind", p.Metadata.Name, "to", n.Metadata.Name)
-				//mu := sync.sMutex{}
-				//mu.Lock()
 				e := bind(p, n)
+				time.Sleep(2 * time.Second)
+				fmt.Println("schedule pod", j)
 				if e != nil {
 					return e
 				}
-				//mu.Unlock()
 			}
 		}
 	}
+	mu.Unlock()
 	//close(ok)
 	return nil
 }

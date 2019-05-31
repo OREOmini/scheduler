@@ -146,9 +146,9 @@ func watchUnscheduledPods() (<-chan Pod, <-chan error) {
 	return pods, errc
 }
 
-func getUnscheduledPods() ( []*Pod, error) {
+func getUnscheduledPods() ( []Pod, error) {
 	var podList PodList
-	unscheduledPods := make([]*Pod, 0)
+	unscheduledPods := make([]Pod, 0)
 
 	v := url.Values{}
 	v.Set("fieldSelector", "spec.nodeName=")
@@ -177,7 +177,7 @@ func getUnscheduledPods() ( []*Pod, error) {
 	for _, pod := range podList.Items {
 		//if pod.Metadata.Annotations["scheduler.alpha.kubernetes.io/name"] == schedulerName {
 		if pod.Spec.SchedulerName == schedulerName {
-			unscheduledPods = append(unscheduledPods, &pod)
+			unscheduledPods = append(unscheduledPods, pod)
 		}
 	}
 
@@ -319,7 +319,7 @@ func fit(pod *Pod) ([]Node, error) {
 	return nodes, nil
 }
 
-func bind(pod *Pod, node Node) error {
+func bind(pod Pod, node Node) error {
 	binding := Binding{
 		ApiVersion: "v1",
 		Kind:       "Binding",
@@ -330,14 +330,12 @@ func bind(pod *Pod, node Node) error {
 			Name:       node.Metadata.Name,
 		},
 	}
-
 	var b []byte
 	body := bytes.NewBuffer(b)
 	err := json.NewEncoder(body).Encode(binding)
 	if err != nil {
 		return err
 	}
-
 	request := &http.Request{
 		Body:          ioutil.NopCloser(body),
 		ContentLength: int64(body.Len()),
@@ -350,15 +348,15 @@ func bind(pod *Pod, node Node) error {
 		},
 	}
 	request.Header.Set("Content-Type", "application/json")
-
 	resp, err := http.DefaultClient.Do(request)
 	if err != nil {
+		println(err.Error())
 		return err
 	}
 	if resp.StatusCode != 201 {
+		println("http code", resp.StatusCode, resp.Status)
 		return errors.New("Binding: Unexpected HTTP status code" + resp.Status)
 	}
-
 	// Emit a Kubernetes event that the Pod was scheduled successfully.
 	message := fmt.Sprintf("Successfully assigned %s to %s", pod.Metadata.Name, node.Metadata.Name)
 	timestamp := time.Now().UTC().Format(time.RFC3339)
@@ -379,6 +377,7 @@ func bind(pod *Pod, node Node) error {
 		},
 	}
 	log.Println(message)
+	println("---bind end----")
 	return postEvent(event)
 }
 
