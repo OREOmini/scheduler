@@ -22,6 +22,7 @@ nodeList = [
 ]
 
 def schedule_solve(podList, nodeList, VERBOSE = False):
+    print("====python func=====")
     podNum = len(podList)
     nodeNum = len(nodeList)
 
@@ -71,6 +72,7 @@ def schedule_solve(podList, nodeList, VERBOSE = False):
         # print(v.name, "=", v.varValue)  
     
     print(result)
+    print("====python func=====")
     return result
 
 

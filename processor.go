@@ -45,12 +45,15 @@ func monitorUnscheduledPods(done chan struct{}, wg *sync.WaitGroup) {
 		select {
 		case err := <-errc:
 			log.Println(err)
-		case pod := <-pods:
+		case <-pods:
+			fmt.Println("monitorUnscheduledPods", "<-pods")
 			processorLock.Lock()
 			time.Sleep(2 * time.Second)
-			err := schedulePod(&pod)
+			pods, err := getUnscheduledPods()
 			if err != nil {
 				log.Println(err)
+			} else {
+				schedulePodUsingSolver(pods)
 			}
 			processorLock.Unlock()
 		case <-done:
@@ -73,10 +76,10 @@ func schedulePod(pod *Pod) error {
 	if err != nil {
 		return err
 	}
-	printPod(*pod)
+	//printPod(*pod)
 	err = bind(pod, node)
 	println("bind")
-	printNode(node)
+	//printNode(node)
 	if err != nil {
 		return err
 	}
@@ -91,11 +94,17 @@ func schedulePods() error {
 	if err != nil {
 		return err
 	}
-	for _, pod := range pods {
-		err := schedulePod(pod)
-		if err != nil {
-			log.Println(err)
-		}
+
+	if len(pods) != 0 {
+		schedulePodUsingSolver(pods)
 	}
+
+	//for _, pod := range pods {
+	//	fmt.Println("----a pod to be schedule------")
+	//	err := schedulePod(pod)
+	//	if err != nil {
+	//		log.Println(err)
+	//	}
+	//}
 	return nil
 }

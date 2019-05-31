@@ -37,7 +37,7 @@ func toMb(s string) float64 {
 		}
 	} else {
 		if s, err := strconv.ParseFloat(s, 1); err == nil {
-			return s
+			return s * 1000
 		}
 	}
 	return 0
@@ -65,7 +65,6 @@ func getMemoryFromString(memoryStr string) float64{
 func (node *Node) getSolveParamList() []float64 {
 	res := make([]float64, 3)
 	for k, v := range node.Status.Allocatable {
-		fmt.Printf("%s: %s\n", k, v)
 		if k == "cpu" {
 			res[0] = getCpuFromString(v)
 		} else if k == "memory" {
@@ -129,18 +128,18 @@ func toGoList(pyList *python.PyObject) []int {
 	return res
 }
 
-func callPySolve(res chan *python.PyObject, ok chan bool) {
+func callPySolve(n [][]float64, p [][]float64, ok chan bool) *python.PyObject{
 	m := python.PyImport_ImportModule("sys")
 	if m == nil {
 		fmt.Println("import error")
-		return
+		return nil
 	}
 	path := m.GetAttrString("path")
 	if path == nil {
 		fmt.Println("get path error")
-		return
+		return nil
 	}
-	//加入当前目录，空串表示当前目录
+	//add to current path
 	currentDir := python.PyString_FromString("")
 	python.PyList_Insert(path, 0, currentDir)
 
@@ -148,48 +147,114 @@ func callPySolve(res chan *python.PyObject, ok chan bool) {
 	solver := python.PyImport_ImportModule("lp-solver")
 	if solver == nil {
 		fmt.Println("import error")
-		return
+		return nil
 	}
 	a := solver.GetAttrString("a")
 	fmt.Printf("[VARS] a = %#v\n", python.PyInt_AsLong(a))
 
-	podList := python.PyList_New(3)
-	python.PyList_SET_ITEM(podList, 0, getPyList([]float64{10, 3}))
-	python.PyList_SET_ITEM(podList, 1, getPyList([]float64{10, 1}))
-	python.PyList_SET_ITEM(podList, 2,  getPyList([]float64{10, 3}))
-	//
-	nodeList := python.PyList_New(3)
-	python.PyList_SET_ITEM(nodeList, 0, getPyList([]float64{20, 5, 10}))
-	python.PyList_SET_ITEM(nodeList,1, getPyList([]float64{10, 4, 10}))
-	python.PyList_SET_ITEM(nodeList,2, getPyList([]float64{10, 4, 10}))
+	podList := python.PyList_New(len(p))
+	for i := 0; i < len(p); i++ {
+		python.PyList_SET_ITEM(podList, i, getPyList(p[i]))
+	}
+
+	nodeList := python.PyList_New(len(n))
+	for i := 0; i < len(n); i++ {
+		python.PyList_SET_ITEM(nodeList, i, getPyList(n[i]))
+	}
 
 	args := python.PyTuple_New(2)
 	python.PyTuple_SET_ITEM(args, 0, podList)
 	python.PyTuple_SET_ITEM(args, 1, nodeList)
 
-	fmt.Println(python.PyList_GET_ITEM(podList, 0))
-	//
 	solverFunc := solver.GetAttrString("schedule_solve")
-	fmt.Printf("[FUNC] = %#v\n", solverFunc)
-
-	done := make(chan bool)
-	//res := make(chan *python.PyObject)
-	go func() {
-		res <- solverFunc.Call(args, python.Py_None)
-		close(done)
-
-	}()
-	//res := solverFunc.Call(args, python.Py_None)
-	<- done
+	res := solverFunc.Call(args, python.Py_None)
 	if res == nil {
 		fmt.Println("call error")
-		return
+		return nil
 	}
 	close(ok)
-	//return res
+	return res
 }
 
-//
+func solve(nodeList []Node, podList []*Pod) [][]int{
+	podMatrix := make([][]float64, len(podList))
+	for i := 0;i < len(podList); i++ {
+		podMatrix[i] = podList[i].getSolveParamList()
+	}
+	fmt.Println("pod param list:", podMatrix)
+
+	nodeMatrix := make([][]float64, len(nodeList))
+	for i := 0;i < len(nodeList); i++ {
+		nodeMatrix[i] = nodeList[i].getSolveParamList()
+	}
+	fmt.Println("node param list:", nodeMatrix)
+
+
+	//res := make(*python.PyObject)
+	ok := make(chan bool)
+
+	pyMatrix := callPySolve(nodeMatrix, podMatrix, ok)
+	<- ok
+	//pyMatrix := <- res
+	//pyMatrix = python.PyList_GetItem(pyMatrix, 0)
+
+	size := python.PyList_Size(pyMatrix)
+	podAllocation := make([][]int, size)
+	for i := 0; i < size; i++ {
+		pyListTemp := python.PyList_GET_ITEM(pyMatrix, i)
+		temp := toGoList(pyListTemp)
+		podAllocation[i] = temp
+	}
+	return podAllocation
+}
+
+func schedulePodUsingSolver(podList []*Pod) error{
+	fmt.Println("get pod list len:", len(podList))
+	nodeList, err := getNodes()
+	if err != nil {
+		return err
+	}
+
+	podAllocation := solve(nodeList.Items, podList)
+	fmt.Println(podAllocation)
+
+	//ok := make(chan bool)
+	err = schedulePodOnResult(podAllocation, podList, nodeList.Items)
+
+	if err != nil {
+		return err
+	}
+
+	//<- ok
+	//return fmt.Errorf("Unable to schedule pod (%s) failed to fit in any node", pod.Metadata.Name)
+	return nil
+}
+
+func schedulePodOnResult(podAllocation [][]int,podList []*Pod, nodeList []Node) error {
+	if len(podAllocation) != len(nodeList) || len(podAllocation[0]) != len(podList) {
+		return fmt.Errorf("Matrix Incompability.")
+	}
+	for i := 0; i < len(podAllocation); i++ {
+		for j := 0; j < len(podAllocation); j++ {
+			if podAllocation[i][j] == 1 {
+				n := nodeList[i]
+				p := podList[j]
+				fmt.Println("bind", p.Metadata.Name, "to", n.Metadata.Name)
+				//mu := sync.sMutex{}
+				//mu.Lock()
+				e := bind(p, n)
+				if e != nil {
+					return e
+				}
+				//mu.Unlock()
+			}
+		}
+	}
+	//close(ok)
+	return nil
+}
+
+
 //func main() {
 //	res := make(chan *python.PyObject)
 //	ok := make(chan bool)
@@ -212,4 +277,4 @@ func callPySolve(res chan *python.PyObject, ok chan bool) {
 //	}
 //}
 //
-//
+

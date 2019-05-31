@@ -146,7 +146,7 @@ func watchUnscheduledPods() (<-chan Pod, <-chan error) {
 	return pods, errc
 }
 
-func getUnscheduledPods() ([]*Pod, error) {
+func getUnscheduledPods() ( []*Pod, error) {
 	var podList PodList
 	unscheduledPods := make([]*Pod, 0)
 
@@ -179,11 +179,6 @@ func getUnscheduledPods() ([]*Pod, error) {
 		if pod.Spec.SchedulerName == schedulerName {
 			unscheduledPods = append(unscheduledPods, &pod)
 		}
-	}
-
-	println("unscheduled pods:")
-	for _, pod := range unscheduledPods {
-		printPod(*pod)
 	}
 
 	return unscheduledPods, nil

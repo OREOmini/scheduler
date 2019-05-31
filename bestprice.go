@@ -14,10 +14,12 @@
 package main
 
 import (
+	"fmt"
 	"strconv"
 )
 
 func bestPrice(nodes []Node) (Node, error) {
+	fmt.Println("---best price callled----")
 	type NodePrice struct {
 		Node  Node
 		Price float64
