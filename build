@@ -1,1 +1,11 @@
-go build -a --ldflags '-extldflags "-static"' -tags netgo -installsuffix netgo .
+# export PKG_CONFIG_PATH=/System/Library/Frameworks/Python.framework/Versions/2.7/lib/pkgconfig
+# CGO_ENABLE=0 go build -a --ldflags '-extldflags "-static"' -tags netgo -installsuffix netgo .
+
+# env CC=x86_64-pc-linux-gcc GOOS=linux GOARCH=amd64 CGO_ENABLED=1 CGO_LDFLAGS="-L/usr/local/Cellar/python@2/2.7.15_1/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config -lpython2.7" go build -v -o bin/linux_amd64/app ./src/cmd/main
+
+GOOS=linux 
+GOARCH=386 
+CGO_ENABLED=1 
+PKG_CONFIG_PATH=/System/Library/Frameworks/Python.framework/Versions/2.7/lib/pkgconfig 
+CGO_LDFLAGS="/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config" 
+bash build 

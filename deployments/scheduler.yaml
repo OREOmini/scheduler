@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: scheduler
-          image: gcr.io/my-gcp-project-239900/hightower-scheduler:1.0
+          # command: ["/bin/sh"]
+          image: gcr.io/my-gcp-project-239900/hightower-scheduler:2.0
         - name: kubectl
           image: lachlanevenson/k8s-kubectl
           args:
