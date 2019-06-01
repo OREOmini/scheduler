@@ -1,0 +1,40 @@
+{
+  'Pods':[
+    {
+      'name': 'pod1',
+      'cpu': 50,
+      'mem': 200
+    },
+    {
+      'name': 'pod2',
+      'cpu': 20,
+      'mem': 100
+    },
+    {
+      'name': 'pod3',
+      'cpu': 15,
+      'mem': 80
+    }
+  ],
+
+  'Nodes':[
+    {
+      'name': 'node1',
+      'cpu': 145,
+      'mem': 600,
+      'pnum': 100
+    },
+    {
+      'name': 'node2',
+      'cpu': 85,
+      'mem': 400,
+      'pnum': 100
+    },
+    {
+      'name': 'node3',
+      'cpu': 30,
+      'mem': 120,
+      'pnum': 100
+    },
+  ]
+}

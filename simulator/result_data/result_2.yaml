@@ -1,0 +1,31 @@
+Nodes:
+- cpu: 297
+  mem: 295
+  name: node0
+  pnum: 260
+- cpu: 227
+  mem: 249
+  name: node1
+  pnum: 254
+- cpu: 235
+  mem: 246
+  name: node2
+  pnum: 212
+- cpu: 265
+  mem: 215
+  name: node3
+  pnum: 256
+- cpu: 234
+  mem: 200
+  name: node4
+  pnum: 260
+Pods:
+- cpu: 7
+  mem: 4
+  name: pod0
+- cpu: 9
+  mem: 7
+  name: pod1
+- cpu: 9
+  mem: 8
+  name: pod2
