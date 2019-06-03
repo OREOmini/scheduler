@@ -6,34 +6,12 @@ import copy
 import time
 from scipy.special import perm
 
-# def solve(file_name):
-# 	# file_name = argv[1]
-# 	fp = open(file_name, 'r')
-# 	inputs = yaml.load(fp)
-# 	fp.close()
-
-# 	starttime = time.time()
-
-# 	permutation(inputs['Pods'])
-# 	# print ('permutation of pods:', perm_pod)
-
-# 	all_ALs = processing_permutation_of_pods(perm_pod, inputs['Nodes'])
-# 	# print ('all_ALs:', all_ALs)
-
-# 	AL = find_AL_with_smallest_na(all_ALs)
-# 	print ('AL:', AL)
-
-# 	endtime = time.time()
-
-# 	normal = endtime - starttime
-# 	print ('seconds:', normal)
-# 	return AL
-
 # Input is a dict, P is a list, N is also a list
 def main(argv):
 	file_name = argv[1]
 	fp = open(file_name, 'r')
 	inputs = yaml.load(fp)
+	# inputs = yaml.load(fp, Loader=yaml.Loader)
 	fp.close()
 
 	starttime = time.time()
