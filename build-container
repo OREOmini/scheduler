@@ -1,5 +1,5 @@
 # GOOS=linux GOARCH=amd64 CGO_ENABLED=1 go build .
-# GOOS=linux GOARCH=amd64 CGO_ENABLED=1 bash build
+GOOS=linux CGO_ENABLED=1 bash build
 docker build -t gcr.io/my-gcp-project-239900/hightower-scheduler:2.0 .
 docker push gcr.io/my-gcp-project-239900/hightower-scheduler:2.0
 # rm scheduler

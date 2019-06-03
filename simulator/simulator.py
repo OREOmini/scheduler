@@ -37,8 +37,9 @@ def main(argv):
 	fp.close()
 
 	starttime = time.time()
-
+	# print(inputs['Pods'])
 	permutation(inputs['Pods'])
+	
 	# print ('permutation of pods:', perm_pod)
 
 	all_ALs = processing_permutation_of_pods(perm_pod, inputs['Nodes'])
@@ -56,13 +57,15 @@ def main(argv):
 perm_pod = []
 # the permutation of pods in P, pods is a list.
 def permutation(pods):
-	print("permutation")
 	n = []
 	permu(pods, n)
 
 
 def permu(list,stack):
-	print('permu')
+	# print('permu')
+	# print(len(list))
+	# print(len(stack))
+
 	if not list:
 		stack = copy.deepcopy(stack)
 		perm_pod.append(stack)
@@ -78,7 +81,6 @@ def permu(list,stack):
 
 # perm_p is a list of permutation of pods, nodes is a list.
 def processing_permutation_of_pods(perm_p, nodes):
-	print('processing_permutation_of_pods')
 	AL_dict = {}
 	for queue in perm_p:
 		AL = []

@@ -26,7 +26,7 @@ def extract_output(stdout):
 
 results = []
 
-for i in range(9,15):
+for i in range(file_num):
     print(i)
     d = dict()
     file_name = getFilePath(i)
@@ -37,11 +37,14 @@ for i in range(9,15):
 
     pods = inputs['Pods']
     nodes = inputs['Nodes']
+    if len(pods) > 13:
+        continue
+
     d['pods'] = pods
     print('pod len:', len(pods))
     d['nodes'] = nodes
     print('node len:', len(nodes))
-    
+
     process = subprocess.run(
         ['python3', 'simulator.py', file_name],
         stdin=subprocess.PIPE, stdout=subprocess.PIPE
@@ -50,6 +53,7 @@ for i in range(9,15):
 
     d['result'] = p
     d['time'] = t
+    d['index'] = i
     results.append(d)
 
 import pprint
